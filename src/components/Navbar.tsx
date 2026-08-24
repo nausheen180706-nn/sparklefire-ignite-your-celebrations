@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Heart, Menu, Search, ShoppingCart, Sparkles, User, X } from "lucide-react";
+import { Heart, Menu, Search, ShoppingCart, Sparkles, User, X, Sun, Moon } from "lucide-react";
 import { useShop } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +15,7 @@ const links = [
 ] as const;
 
 export function Navbar() {
-  const { cartCount, wishlist } = useShop();
+  const { cartCount, wishlist, theme, toggleTheme } = useShop();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -59,6 +59,14 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
+          <button
+            type="button"
+            aria-label="Toggle Theme"
+            onClick={toggleTheme}
+            className="grid h-10 w-10 place-items-center rounded-full text-brown transition hover:bg-cream hover:text-gold-deep"
+          >
+            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
           <button
             type="button"
             aria-label="Search"

@@ -11,11 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as CartRouteImport } from './routes/cart'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as CombosRouteImport } from './routes/combos'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as OffersRouteImport } from './routes/offers'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -26,6 +30,16 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesRoute = CategoriesRouteImport.update({
@@ -48,9 +62,19 @@ const OffersRoute = OffersRouteImport.update({
   path: '/offers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WishlistRoute = WishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductIdRoute = ProductIdRouteImport.update({
@@ -62,32 +86,44 @@ const ProductIdRoute = ProductIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
   '/combos': typeof CombosRoute
   '/contact': typeof ContactRoute
   '/offers': typeof OffersRoute
+  '/search': typeof SearchRoute
   '/shop': typeof ShopRoute
+  '/wishlist': typeof WishlistRoute
   '/product/$id': typeof ProductIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
   '/combos': typeof CombosRoute
   '/contact': typeof ContactRoute
   '/offers': typeof OffersRoute
+  '/search': typeof SearchRoute
   '/shop': typeof ShopRoute
+  '/wishlist': typeof WishlistRoute
   '/product/$id': typeof ProductIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
   '/combos': typeof CombosRoute
   '/contact': typeof ContactRoute
   '/offers': typeof OffersRoute
+  '/search': typeof SearchRoute
   '/shop': typeof ShopRoute
+  '/wishlist': typeof WishlistRoute
   '/product/$id': typeof ProductIdRoute
 }
 export interface FileRouteTypes {
@@ -95,42 +131,58 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/account'
+    | '/cart'
     | '/categories'
     | '/combos'
     | '/contact'
     | '/offers'
+    | '/search'
     | '/shop'
+    | '/wishlist'
     | '/product/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/account'
+    | '/cart'
     | '/categories'
     | '/combos'
     | '/contact'
     | '/offers'
+    | '/search'
     | '/shop'
+    | '/wishlist'
     | '/product/$id'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/account'
+    | '/cart'
     | '/categories'
     | '/combos'
     | '/contact'
     | '/offers'
+    | '/search'
     | '/shop'
+    | '/wishlist'
     | '/product/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
+  CartRoute: typeof CartRoute
   CategoriesRoute: typeof CategoriesRoute
   CombosRoute: typeof CombosRoute
   ContactRoute: typeof ContactRoute
   OffersRoute: typeof OffersRoute
+  SearchRoute: typeof SearchRoute
   ShopRoute: typeof ShopRoute
+  WishlistRoute: typeof WishlistRoute
   ProductIdRoute: typeof ProductIdRoute
 }
 
@@ -148,6 +200,20 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories': {
@@ -178,11 +244,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OffersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/product/$id': {
@@ -198,11 +278,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
+  CartRoute: CartRoute,
   CategoriesRoute: CategoriesRoute,
   CombosRoute: CombosRoute,
   ContactRoute: ContactRoute,
   OffersRoute: OffersRoute,
+  SearchRoute: SearchRoute,
   ShopRoute: ShopRoute,
+  WishlistRoute: WishlistRoute,
   ProductIdRoute: ProductIdRoute,
 }
 export const routeTree = rootRouteImport

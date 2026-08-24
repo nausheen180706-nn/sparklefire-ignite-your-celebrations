@@ -20,12 +20,15 @@ interface ShopState {
   toggleWishlist: (id: string) => void;
   isWishlisted: (id: string) => boolean;
   removeFromWishlist: (id: string) => void;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
 }
 
 const ShopContext = createContext<ShopState | null>(null);
 
 const CART_KEY = "sparklefire.cart";
 const WISH_KEY = "sparklefire.wishlist";
+const THEME_KEY = "sparklefire.theme";
 
 function read<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -40,11 +43,24 @@ function read<T>(key: string, fallback: T): T {
 export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartLine[]>([]);
   const [wishlist, setWishlist] = useState<string[]>([]);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     setCart(read<CartLine[]>(CART_KEY, []));
     setWishlist(read<string[]>(WISH_KEY, []));
+    
+    const savedTheme = read<"light" | "dark" | null>(THEME_KEY, null);
+    if (savedTheme) {
+      setTheme(savedTheme);
+      if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+      document.documentElement.classList.add("dark");
+    }
+    
     setHydrated(true);
   }, []);
 
@@ -55,6 +71,19 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (hydrated) window.localStorage.setItem(WISH_KEY, JSON.stringify(wishlist));
   }, [wishlist, hydrated]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((t) => {
+      const next = t === "light" ? "dark" : "light";
+      window.localStorage.setItem(THEME_KEY, JSON.stringify(next));
+      if (next === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      return next;
+    });
+  }, []);
 
   const addToCart = useCallback((id: string, qty = 1) => {
     const product = products.find((p) => p.id === id);
@@ -121,6 +150,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     toggleWishlist,
     isWishlisted: (id: string) => wishlist.includes(id),
     removeFromWishlist,
+    theme,
+    toggleTheme,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

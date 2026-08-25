@@ -93,9 +93,20 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="relative border-t border-champagne/70 px-4 py-5 text-center text-xs text-brown-muted lg:px-8">
-        © {new Date().getFullYear()} SparkleFire. All rights reserved. Fireworks are sold in
-        compliance with local safety regulations.
+      <div className="relative border-t border-champagne/70 px-4 py-5 text-center text-xs text-brown-muted lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span>
+          © {new Date().getFullYear()} SparkleFire. All rights reserved. Fireworks are sold in
+          compliance with local safety regulations.
+        </span>
+        <button
+          onClick={() => {
+            localStorage.removeItem("sparklefire_intro_seen");
+            window.location.reload();
+          }}
+          className="text-gold-deep hover:underline cursor-pointer font-medium"
+        >
+          Replay Cinematic Intro
+        </button>
       </div>
     </footer>
   );
@@ -113,10 +124,7 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
 function FooterLink({ to, label }: { to: string; label: string }) {
   return (
     <li>
-      <Link
-        to={to}
-        className="text-sm text-brown-muted transition-colors hover:text-gold-deep"
-      >
+      <Link to={to} className="text-sm text-brown-muted transition-colors hover:text-gold-deep">
         {label}
       </Link>
     </li>

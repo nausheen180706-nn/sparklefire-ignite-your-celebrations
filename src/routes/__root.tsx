@@ -16,6 +16,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { Toaster } from "@/components/ui/sonner";
+import { FireworkIntro } from "@/components/FireworkIntro";
 
 function NotFoundComponent() {
   return (
@@ -134,6 +135,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ShopProvider>
+        <FireworkIntro />
         <div className="flex min-h-screen flex-col bg-background">
           <Navbar />
           <main className="flex-1 pb-16 sm:pb-0">

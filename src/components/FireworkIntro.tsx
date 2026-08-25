@@ -17,10 +17,12 @@ export function FireworkIntro() {
   // Setup localStorage check and prefers-reduced-motion
   useEffect(() => {
     // Check if development reset is requested or if it's the first visit
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceIntro = urlParams.has("intro");
     const seen = localStorage.getItem("sparklefire_intro_seen");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!seen) {
+    if (!seen || forceIntro) {
       setShow(true);
       if (prefersReducedMotion) {
         // Reduced motion sequence: skip canvas, just fade in logo for 1.5s
